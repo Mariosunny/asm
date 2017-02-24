@@ -1,0 +1,30 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+0005                    N	equ	5
+1500                    	org	$1500
+1500 0b 0e 0f 11 14     array	dc.b	11,14,15,17,20
+1505                    sum	rmb	2	; reserve 2 bytes of memory for sum
+1507                    i	rmb	1	; reserve 1 byte of memory for loop counter
+2000                    	org	$2000	; program start
+2000 86 00              	ldaa	#0	; A = 0
+2002 7a 15 07           	staa	i	; i = 0
+2005 7a 15 05           	staa	sum	; sum = 0
+2008 7a 15 06           	staa 	sum+1	; [sum+1] = 0
+200b f6 15 07           loop	ldab	i	; B = i
+200e c1 05              	cmpb	#N	; B == 5?
+2010 27 14              	beq	done	; branch to done if B == 5
+2012 ce 15 00           	ldx	#array; load pointer first element in array to X
+2015 1a e5              	abx		; X = X + B
+2017 e6 00              	ldab	0,X	; B = [X]
+2019 fd 15 05           	ldy	sum	; Y = [sum]
+201c 19 ed              	aby		; B = B + Y
+201e 7d 15 05           	sty	sum	; sum = Y
+2021 72 15 07           	inc	i	; i++
+2024 20 e5              	bra	loop	; branch back to loop
+2026 3f                 done	swi		; loop finished
+                        	end
+
+Executed: Fri Feb 17 14:29:10 2017
+Total cycles: 58, Total bytes: 44
+Total errors: 0, Total warnings: 0

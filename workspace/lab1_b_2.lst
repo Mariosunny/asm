@@ -1,0 +1,65 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+2000                    	org	$2000	; program start
+                        	; load incrementing values into memory: 00-0F, beginning at $1500
+2000 cc 00 11           	ldd	#$0011	; D = $0011
+2003 7a 15 00           	staa	$1500	; $1500 = A
+2006 7b 15 01           	stab	$1501	; $1501 = B
+2009 cc 22 33           	ldd	#$2233	; D = $2233
+200c 7a 15 02           	staa	$1502	; $1502 = A
+200f 7b 15 03           	stab	$1503	; $1503 = B
+2012 cc 44 55           	ldd	#$4455	; D = $4455
+2015 7a 15 04           	staa	$1504	; $1504 = A
+2018 7b 15 05           	stab	$1505	; $1505 = B
+201b cc 66 77           	ldd	#$6677	; D = $6677
+201e 7a 15 06           	staa	$1506	; $1506 = A
+2021 7b 15 07           	stab	$1507	; $1507 = B
+2024 cc 88 99           	ldd	#$8899	; D = $8899
+2027 7a 15 08           	staa	$1508	; $1508 = A
+202a 7b 15 09           	stab	$1509	; $1509 = B
+202d cc aa bb           	ldd	#$AABB	; D = $aabb
+2030 7a 15 0a           	staa	$150A	; $150a = A
+2033 7b 15 0b           	stab	$150B	; $150b = B
+2036 cc cc dd           	ldd	#$CCDD	; D = $ccdd
+2039 7a 15 0c           	staa	$150C	; $150c = A
+203c 7b 15 0d           	stab	$150D	; $150d = B
+203f cc ee ff           	ldd	#$EEFF	; D = $eeff
+2042 7a 15 0e           	staa	$150E	; $150e = A
+2045 7b 15 0f           	stab	$150F	; $150f = B
+                        
+                        	; 5 bit constant offset indexed addressing
+2048 ce 15 09           	ldx	#$1509	; X = $1509
+204b a6 03              	ldaa	3,X	; A = [X + 3]
+204d e6 1c              	ldab	-4,X	; B = [X - 4]
+                        
+                        	; 9 bit constant offset indexed addressing
+204f cd 15 90           	ldy	#$1590	; Y = $1590
+2052 a6 e9 b2           	ldaa	-78,Y	; A = [Y - 78]
+2055 cd 14 90           	ldy	#$1490	; Y = $1490
+2058 e6 e8 45           	ldab	$45,Y	; B = [Y + $45]
+                        
+                        	; 16 bit constant offset indexed addressing
+205b ce 10 00           	ldx	#$1000	; X = $1000
+205e a6 e2 0a bc        	ldaa	$ABC,X	; A = [X + $ABC]
+2062 cd 20 00           	ldy	#$2000	; Y = $2000
+2065 e6 ea f4 66        	ldab	-$B9A,Y	; B = [Y - $B9A]
+                        
+                        	; 16 bit constant indirect indexed addressing
+2069 cc 15 05           	ldd	#$1505	; D = $1505
+206c 7a 15 15           	staa	$1515	; $1515 = [A]
+206f 7b 15 16           	stab	$1516	; $1516 = [B]
+2072 ce 15 2d           	ldx	#$152D	; X = $152D
+2075 a6 e3 ff ef        	ldaa	[-$11,X]; A = [X - $11]
+                        
+2079 cc 15 08           	ldd	#$1508	; D = $1508
+207c 7a 15 45           	staa	$1545	; $1545 = [A]
+207f 7b 15 46           	stab	$1546	; $1546 = [B]
+2082 ce 15 2d           	ldx	#$152D	; X = $152D
+2085 e6 e3 00 24        	ldab	[$24,X]	; B = [X + $24]
+2089 3f                 	swi
+                        	end
+
+Executed: Wed Feb 08 17:20:02 2017
+Total cycles: 144, Total bytes: 138
+Total errors: 0, Total warnings: 0

@@ -1,0 +1,15 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+2000                    	org     $2000   ; program start
+2000 cc bb cc                   ldd     #$BBCC  ; D = $BBCC
+2003 7a 15 01                   staa    $1501   ; $1501 = A
+2006 7b 15 02                   stab    $1502   ; $1502 = B
+2009 b6 15 01                   ldaa    $1501   ; A = m[$1501]
+200c f6 15 02                   ldab    $1502   ; B = m[$1502]
+200f 3f                         swi
+                                end
+
+Executed: Wed Feb 08 16:05:24 2017
+Total cycles: 32, Total bytes: 16
+Total errors: 0, Total warnings: 0

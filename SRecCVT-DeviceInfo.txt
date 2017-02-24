@@ -1,0 +1,22 @@
+#
+#
+# Device          FlashStart  FlashEnd  PPAGEBase  NumPages  EEStart  EEEnd  FErasedState  SRecSize
+# -------------   ----------  --------  ---------  --------  -------  -----  ------------  --------
+MC68HC912B(x)32,  8000,      FFFF,      0,         0,        0D00,    0FFF,  FF,            32
+MC68HC912D60,     1000,      FFFF,      0,         0,        0C00,    0FFF,  FF,            32
+MC68HC912D60A,    1000,      FFFF,      0,         0,        0C00,    0FFF,  FF,            64
+MC68HC912Dx128,   8000,      BFFF,      0,         8,        0800,    0FFF,  FF,            32
+MC68HC912Dx128A,  8000,      BFFF,      0,         8,        0800,    0FFF,  FF,            64
+MC68HC912GA32,    8000,      FFFF,      0,         0,        1C00,    1FFF,  00,            16
+MC9S12Dx256,      8000,      BFFF,      30,        16,       0000,    0FFF,  FF,            32
+MC9S12A256,       8000,      BFFF,      30,        16,       0000,    0FFF,  FF,            32
+MC9S12H256,       8000,      BFFF,      30,        16,       0000,    0FFF,  FF,            32
+MC9S12DT128,      8000,      BFFF,      38,        8,        0000,    07FF,  FF,            32
+MC9S12A128,       8000,      BFFF,      38,        8,        0000,    07FF,  FF,            32
+MC9S12Dx64,       8000,      BFFF,      3C,        4,        0000,    03FF,  FF,            32
+MC9S12A64,        8000,      BFFF,      3C,        4,        0000,    03FF,  FF,            32
+MC9S12E128,       8000,      BFFF,      38,        8,        0000,    0000,  FF,            32
+MC9S12C32,        8000,      BFFF,      3E,        2,        0000,    0000,  FF,            32
+MC68HC912KD128,   8000,      BFFF,      0,         8,        0800,    0FFF,  FF,            64
+MC9S12Dx512,      8000,      BFFF,      20,        32,       0000,    0FFF,  FF,            32
+MC9S12A512,       8000,      BFFF,      20,        32,       0000,    0FFF,  FF,            32
