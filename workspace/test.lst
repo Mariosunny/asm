@@ -1,39 +1,15 @@
 
 as12, an absolute assembler for Motorola MCU's, version 1.2h
 
-0005                    N       equ     5
-1500                            org     $1500
-1500                    param   rmb     10
 2000                            org     $2000
-2000 cf 15 00                   lds     #$1500
-2003 18 03 20 30 15 00          movw    #array, param
-2009 18 0b 05 15 02             movb    #N, param+2
-200e 07 01                      bsr     avg
-2010 3f                         swi
-                        
-                                ; average(array, length) -> X
-2011 07 0b              avg     bsr     sum
-2013 f6 15 02                   ldab    param+2
-2016 87                         clra
-2017 b7 d4                      exg     X,D
-2019 b7 c6                      exg     D,Y
-201b 18 10                      idiv
-201d 3d                         rts
-                        
-                                ; sum(array, length) -> Y
-201e fe 15 00           sum     ldx     param
-2021 b6 15 02                   ldaa    param+2
-2024 cd 00 00                   ldy     #0
-2027 e6 00              sum0 	ldab    0,X
-2029 19 ed                      aby
-202b 08                         inx
-202c 04 30 f8                   dbne    A, sum0
-202f 3d                         rts
-                                
-2030 0e 5d 22 43 2d     array   dc.b    14, 93, 34, 67, 45
-                        
+2000 a7                         nop
+2001 a7                         nop
+2002 a7                         nop
+2003 86 05                      ldaa    #5
+2005 80 0a                      suba    #10
+2007 3f                         swi
                                 end
 
-Executed: Fri Feb 17 19:09:50 2017
-Total cycles: 78, Total bytes: 53
+Executed: Fri Feb 24 16:36:18 2017
+Total cycles: 21, Total bytes: 8
 Total errors: 0, Total warnings: 0

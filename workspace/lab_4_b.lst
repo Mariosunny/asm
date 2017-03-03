@@ -3,34 +3,33 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 
 0014                    N       equ     20
 1500                            org     $1500
-1500                    div     rmb     $20
-1520                    ndiv    rmb     $20
-1540                    divc    rmb     1
-1541                    ndivc   rmb     1
+1500                    div     rmb     $20             ; reserve 32 bytes for divisible-by-4 array
+1520                    ndiv    rmb     $20             ; reserve 32 bytes for not-divisible-by-4 array
+1540                    divc    rmb     1               ; reserve 1 byte for divisible counter
+1541                    ndivc   rmb     1               ; reserve 1 byte for non-divisible counter
 2000                            org     $2000
-2000 18 03 00 00 15 40          movw    #0000, divc
-2006 86 14                      ldaa    #N
-2008 ce 20 2e                   ldx     #array
-200b 0f 00 03 0b        loop    brclr   0,X,$03,isdiv
-200f cd 15 20                   ldy     #ndiv
-2012 f6 15 41                   ldab    ndivc
-2015 72 15 41                   inc     ndivc
-2018 20 09                      bra     done
-201a cd 15 00           isdiv   ldy     #div
-201d f6 15 40                   ldab    divc
-2020 72 15 40                   inc     divc
-2023 19 ed              done    aby
-2025 18 0a 00 40                movb    0,X,0,Y
-2029 08                         inx
-202a 04 30 de                   dbne    A, loop
-202d 3f                         swi
-202e 01 03 05 06 13 29  array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
+2000 18 03 00 00 15 40          movw    #0000, divc     ; clear both array counters
+2006 86 14                      ldaa    #N              ; use A as loop counter, initialize it to size of array
+2008 ce 20 2d                   ldx     #array          ; load address of main array into X
+200b 0f 00 03 0b        loop    brclr   0,X,$03,isdiv   ; branch to isdiv if least two significant bits are zero
+200f cd 15 20                   ldy     #ndiv           ; load address of non-divisible array to Y
+2012 f6 15 41                   ldab    ndivc           ; load counter of non-divisible array to B
+2015 72 15 41                   inc     ndivc           ; increment non-divisible counter
+2018 20 09                      bra     done            ; skip over true block
+201a cd 15 00           isdiv   ldy     #div            ; load address of divisible array to Y
+201d f6 15 40                   ldab    divc            ; load counter of divisible array to B
+2020 72 15 40                   inc     divc            ; increment divisible counter
+2023 19 ed              done    aby                     ; Y = Y + B
+2025 18 0a 20 40                movb    1,+X,0,Y         ; move number from main array to appropriate array
+2029 04 30 df                   dbne    A, loop         ; decrement A, branch to loop if A != 0
+202c 3f                         swi
+202d 01 03 05 06 13 29  array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
      35 1c 0d 2a 4c 0e
      14 36 40 4a 1d 21
      29 2d
                                 end
                                 
 
-Executed: Fri Feb 24 15:17:54 2017
-Total cycles: 57, Total bytes: 66
+Executed: Wed Mar 01 22:06:12 2017
+Total cycles: 56, Total bytes: 65
 Total errors: 0, Total warnings: 0

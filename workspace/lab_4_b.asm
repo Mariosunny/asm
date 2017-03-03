@@ -17,8 +17,7 @@ isdiv   ldy     #div            ; load address of divisible array to Y
         ldab    divc            ; load counter of divisible array to B
         inc     divc            ; increment divisible counter
 done    aby                     ; Y = Y + B
-        movb    0,X,0,Y         ; move number from main array to appropriate array
-        inx                     ; increment pointer to main array
+        movb    1,X+,0,Y        ; move number from main array to appropriate array, increment X
         dbne    A, loop         ; decrement A, branch to loop if A != 0
         swi
 array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
