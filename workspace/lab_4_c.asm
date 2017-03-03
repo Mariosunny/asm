@@ -7,23 +7,29 @@ arrc    rmb     1               ; reserve 1 byte for main array counter
 divc    rmb     1               ; reserve 1 byte for divisible counter
 ndivc   rmb     1               ; reserve 1 byte for non-divisible counter
         org     $2000
-        movw    #0000, arrc     ; clear array counters
-        movb    #00, ndivc      ; clear array counters
+        fill    #00, 3           ; clear array counters
 loop    ldx     #array          ; load pointer to main array into X
         ldab    arrc            ; B = array counter
         abx                     ; B = B + X
-        ldd     0,X             ; D = m[X]
+        clra                    ; A = 0
+        ldab    0,X             ; B = m[X]
         ldx     #qnt            ; X = 3
-        idiv                    ; X = D/X, D = remainder
-        ldx     #array          ; load pointer to main array into X again
+        idiv                    ; X = D/X, D = D % X
         cmpb    #0              ; compare least significant byte in D to 0
         beq     isdiv           ; if remainder == 0, goto isdiv branch
         ldy     #ndiv           ; load pointer to non-divisible array into Y
+        ldab    ndivc           ; load non-divisible counter into B
+        aby                     ; Y = B + Y
         inc     ndivc           ; increment non-divisible counter
         bra     done            ; branch to done, skip over true block
 isdiv   ldy     #div            ; load pointer to divisible array into Y
+        ldab    divc            ; load divisible counter into B
+        aby                     ; Y = B + Y
         inc     divc            ; increment divisible counter
-done    movb    0,X,0,Y         ; move current element to designated array
+done    ldx     #array          ; load pointer to main array into X again
+        ldab    arrc            ; load main array counter into B
+        abx                     ; X = B + X
+        movb    0,X,0,Y         ; move current element to designated array
         inc     arrc            ; increment main array pointer
         ldaa    arrc            ; A = main array pointer
         cmpa    #N              ; compare A to array size

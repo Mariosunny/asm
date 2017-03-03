@@ -20,7 +20,7 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 201d f6 15 40                   ldab    divc            ; load counter of divisible array to B
 2020 72 15 40                   inc     divc            ; increment divisible counter
 2023 19 ed              done    aby                     ; Y = Y + B
-2025 18 0a 20 40                movb    1,+X,0,Y         ; move number from main array to appropriate array
+2025 18 0a 30 40                movb    1,X+,0,Y        ; move number from main array to appropriate array, increment X
 2029 04 30 df                   dbne    A, loop         ; decrement A, branch to loop if A != 0
 202c 3f                         swi
 202d 01 03 05 06 13 29  array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
@@ -30,6 +30,6 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
                                 end
                                 
 
-Executed: Wed Mar 01 22:06:12 2017
+Executed: Fri Mar 03 15:08:10 2017
 Total cycles: 56, Total bytes: 65
 Total errors: 0, Total warnings: 0

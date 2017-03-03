@@ -10,35 +10,41 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 1541                    divc    rmb     1               ; reserve 1 byte for divisible counter
 1542                    ndivc   rmb     1               ; reserve 1 byte for non-divisible counter
 2000                            org     $2000
-2000 18 03 00 00 15 40          movw    #0000, arrc     ; clear array counters
-2006 18 0b 00 15 42             movb    #00, ndivc      ; clear array counters
-200b ce 20 3e           loop    ldx     #array          ; load pointer to main array into X
-200e f6 15 40                   ldab    arrc            ; B = array counter
-2011 1a e5                      abx                     ; B = B + X
-2013 ec 00                      ldd     0,X             ; D = m[X]
-2015 ce 00 03                   ldx     #qnt            ; X = 3
-2018 18 10                      idiv                    ; X = D/X, D = remainder
-201a ce 20 3e                   ldx     #array          ; load pointer to main array into X again
-201d c1 00                      cmpb    #0              ; compare least significant byte in D to 0
-201f 27 08                      beq     isdiv           ; if remainder == 0, goto isdiv branch
-2021 cd 15 20                   ldy     #ndiv           ; load pointer to non-divisible array into Y
-2024 72 15 42                   inc     ndivc           ; increment non-divisible counter
-2027 20 06                      bra     done            ; branch to done, skip over true block
-2029 cd 15 00           isdiv   ldy     #div            ; load pointer to divisible array into Y
+2000 00 00 00                   fill    #00, 3           ; clear array counters
+2003 ce 20 46           loop    ldx     #array          ; load pointer to main array into X
+2006 f6 15 40                   ldab    arrc            ; B = array counter
+2009 1a e5                      abx                     ; B = B + X
+200b 87                         clra                    ; A = 0
+200c e6 00                      ldab    0,X             ; B = m[X]
+200e ce 00 03                   ldx     #qnt            ; X = 3
+2011 18 10                      idiv                    ; X = D/X, D = D % X
+2013 c1 00                      cmpb    #0              ; compare least significant byte in D to 0
+2015 27 0d                      beq     isdiv           ; if remainder == 0, goto isdiv branch
+2017 cd 15 20                   ldy     #ndiv           ; load pointer to non-divisible array into Y
+201a f6 15 42                   ldab    ndivc           ; load non-divisible counter into B
+201d 19 ed                      aby                     ; Y = B + Y
+201f 72 15 42                   inc     ndivc           ; increment non-divisible counter
+2022 20 0b                      bra     done            ; branch to done, skip over true block
+2024 cd 15 00           isdiv   ldy     #div            ; load pointer to divisible array into Y
+2027 f6 15 41                   ldab    divc            ; load divisible counter into B
+202a 19 ed                      aby                     ; Y = B + Y
 202c 72 15 41                   inc     divc            ; increment divisible counter
-202f 18 0a 00 40        done    movb    0,X,0,Y         ; move current element to designated array
-2033 72 15 40                   inc     arrc            ; increment main array pointer
-2036 b6 15 40                   ldaa    arrc            ; A = main array pointer
-2039 81 14                      cmpa    #N              ; compare A to array size
-203b 26 ce                      bne     loop            ; loop if A < size
-203d 3f                         swi
-203e 01 03 05 06 13 29  array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
+202f ce 20 46           done    ldx     #array          ; load pointer to main array into X again
+2032 f6 15 40                   ldab    arrc            ; load main array counter into B
+2035 1a e5                      abx                     ; X = B + X
+2037 18 0a 00 40                movb    0,X,0,Y         ; move current element to designated array
+203b 72 15 40                   inc     arrc            ; increment main array pointer
+203e b6 15 40                   ldaa    arrc            ; A = main array pointer
+2041 81 14                      cmpa    #N              ; compare A to array size
+2043 26 be                      bne     loop            ; loop if A < size
+2045 3f                         swi
+2046 01 03 05 06 13 29  array   db      1, 3, 5, 6, 19, 41, 53, 28, 13, 42, 76, 14, 20, 54, 64, 74, 29, 33, 41, 45
      35 1c 0d 2a 4c 0e
      14 36 40 4a 1d 21
      29 2d
                                 end
                                 
 
-Executed: Fri Feb 24 16:22:55 2017
-Total cycles: 79, Total bytes: 82
+Executed: Fri Mar 03 14:33:34 2017
+Total cycles: 90, Total bytes: 90
 Total errors: 0, Total warnings: 0
