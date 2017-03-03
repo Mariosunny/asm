@@ -7,7 +7,7 @@ arrc    rmb     1               ; reserve 1 byte for main array counter
 divc    rmb     1               ; reserve 1 byte for divisible counter
 ndivc   rmb     1               ; reserve 1 byte for non-divisible counter
         org     $2000
-        fill    #00, 3           ; clear array counters
+        fill    #00, 3          ; clear array counters
 loop    ldx     #array          ; load pointer to main array into X
         ldab    arrc            ; B = array counter
         abx                     ; B = B + X

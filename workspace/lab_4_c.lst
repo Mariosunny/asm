@@ -10,7 +10,7 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 1541                    divc    rmb     1               ; reserve 1 byte for divisible counter
 1542                    ndivc   rmb     1               ; reserve 1 byte for non-divisible counter
 2000                            org     $2000
-2000 00 00 00                   fill    #00, 3           ; clear array counters
+2000 00 00 00                   fill    #00, 3          ; clear array counters
 2003 ce 20 46           loop    ldx     #array          ; load pointer to main array into X
 2006 f6 15 40                   ldab    arrc            ; B = array counter
 2009 1a e5                      abx                     ; B = B + X
@@ -45,6 +45,6 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
                                 end
                                 
 
-Executed: Fri Mar 03 14:33:34 2017
+Executed: Fri Mar 03 16:46:55 2017
 Total cycles: 90, Total bytes: 90
 Total errors: 0, Total warnings: 0
