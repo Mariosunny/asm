@@ -1,0 +1,9 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+standard_deviation.asm:11: Error - Symbol name $avg contains an illegal character.
+standard_deviation.asm:20: Error - Invalid operand value.
+standard_deviation.asm:20: Error - Comma expected but not found.
+
+Executed: Sat Mar 04 00:46:20 2017
+Total errors: 3, Total warnings: 0
