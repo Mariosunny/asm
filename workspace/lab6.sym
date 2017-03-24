@@ -15,7 +15,6 @@ adr15h     013a
 adr16h     013c
 adr17h     013e
 armcop     003f
-array      2041
 atd0ctl0   0080
 atd0ctl1   0081
 atd0ctl2   0082
@@ -257,7 +256,7 @@ initrm     0010
 intcr      001e
 itcr       0015
 itest      0016
-loop       200d
+loop       200a
 mccnt      0076
 mcctl      0066
 mcflg      0067

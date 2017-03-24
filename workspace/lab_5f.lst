@@ -1,0 +1,19 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+0004                    N       equ     4
+1500                            org     $1500
+1500                    num     rmb     1
+2000                            org     $2000
+2000 18 0b 5a 15 00             movb    #$5A,num        ; load $5A into $1500
+2005 f6 15 00                   ldab    num             ; B = $5A
+2008 86 04                      ldaa    #N              ; A = 4
+200a 56                 loop    rorb                    ; rotate B to right
+200b 04 30 fc                   dbne    A,loop          ; decrement A, branch if A != 0
+200e 7b 15 00                   stab    num             ; $1500 = B
+2011 3f                         swi
+                                end
+
+Executed: Sun Mar 12 16:24:00 2017
+Total cycles: 32, Total bytes: 18
+Total errors: 0, Total warnings: 0

@@ -487,34 +487,28 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 2000                            org     $2000
 2000 18 0b 02 00 0c             movb    #$02,pucr
 2005 18 0b 07 00 03             movb    #$07,ddrb
-200a cd 20 41                   ldy     #array
-200d ee 40              loop    ldx    	0,Y
-200f 18 0b 05 00 01     	movb    #$05,portb      ; set OC for channels 0 and 2
-2014 16 20 23                   jsr     d100ms          ; jump to delay subroutine
-2017 18 0b 02 00 01             movb    #$02,portb      ; set OC for channels 1
-201c 16 20 23                   jsr     d100ms          ; jump to delay subroutine
-201f 02                         iny
-2020 20 eb                      bra     loop            ; loop back to beginning
+200a 18 0b 05 00 01     loop    movb    #$05,portb
+200f ce 00 1e                   ldx     #30
+2012 16 20 23                   jsr     d100ms
+2015 18 0b 02 00 01     	movb    #$02,portb
+201a ce 00 0a                   ldx     #10
+201d 16 20 23                   jsr     d100ms
+2020 20 e8                      bra     loop
 2022 3f                         swi
                         
-2023 18 0b 90 00 46     d100ms  movb    #$90,tscr1      ; enable fast flag clear all
-2028 18 0b 06 00 4d             movb    #$06,tscr2      ; set prescale factor to 64
-202d 18 0b 01 00 40             movb    #$01,tios       ; enable output compare for channel 0
-2032 dc 44                      ldd     tcnt            ; load current value of TCNT to D
-2034 c3 92 7c                   addd    #37500          ; add offset to D
-2037 5c 50                      std     tc0             ; write D to channel 0
-2039 4f 4e 01 fc        poll    brclr   tflg1,$01,poll  ; loop infinitely until 37500 counts have passed
-203d 04 35 e3                   dbne    X,d100ms        ; decrement X, loop again
+2023 18 0b 90 00 46     d100ms  movb    #$90,tscr1
+2028 18 0b 06 00 4d             movb    #$06,tscr2
+202d 18 0b 01 00 40             movb    #$01,tios
+2032 dc 44                      ldd     tcnt
+2034 c3 92 7c                   addd    #37500
+2037 5c 50                      std     tc0
+2039 4f 4e 01 fc        poll    brclr   tflg1,$01,poll  ; branch if
+203d 04 35 e3                   dbne    X,d100ms
 2040 3d                         rts
-                                
-                                
-2041 1e 1d 1b 1a 18 16  array   dc.b    30, 29, 27, 26, 24, 22, 20, 18, 16, 14, 12, 9, 7, 5, 1
-     14 12 10 0e 0c 09
-     07 05 01
                                 end
                                 
                                 
 
-Executed: Sun Mar 12 22:55:47 2017
-Total cycles: 82, Total bytes: 80
+Executed: Sun Mar 12 20:45:48 2017
+Total cycles: 81, Total bytes: 65
 Total errors: 0, Total warnings: 0

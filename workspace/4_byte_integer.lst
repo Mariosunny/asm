@@ -1,0 +1,32 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+0004                    size    equ     4
+2000                            org     $2000
+                                
+2000 3f                         swi
+                        
+                        ; add(num1, num2, des)
+0001                    add_s   equ     1
+2001 1b 9f              add     leas         -add_s,SP
+2003 18 08 80 00                movb    #0,0,SP
+2007 ee 83                      ldx     2+add_s,SP
+2009 e6 80                      ldab    0,SP
+200b a6 e5                      ldaa    B,X
+200d ee 84                      ldx     3+add_s,SP
+200f e6 e5                      ldab    B,X
+2011 18 06                      aba
+2013 89 00                      adca    #0
+2015 e6 80                      ldab    0,SP
+2017 6a f5                      staa    B,SP
+2019 62 80                      inc     0,SP
+                                
+201b 1b 81                      leas    1,SP
+201d 3d                         rts
+                        
+                        
+                                end
+
+Executed: Mon Mar 06 23:32:12 2017
+Total cycles: 47, Total bytes: 30
+Total errors: 0, Total warnings: 0

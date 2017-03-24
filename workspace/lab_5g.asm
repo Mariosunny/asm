@@ -1,7 +1,7 @@
-N       eu
+N       equ     4
         org     $1500
 num     rmb     1
-	org     $2000
+        org     $2000
         movb    #$5A,num        ; load $5A into $1500
         ldaa    num             ; A = $5A
         ldab    #N              ; B = 4

@@ -1,0 +1,9 @@
+a) red + green 3
+yellow 1
+
+b) prescale: 32, OC3 for output compare
+
+c) green + red 3
+yellow 1
+green + red 5
+yellow 1

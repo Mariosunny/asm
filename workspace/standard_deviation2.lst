@@ -1,32 +1,7 @@
 
 as12, an absolute assembler for Motorola MCU's, version 1.2h
 
-1500                            org     $1500
-2000                            org     $2000
-2000 ff 18 00                   lds     $1800
-2003 1b 9d                      leas    -3,SP
-2005 18 00 80 20 24             movw    #array,0,SP
-200a 18 08 82 14                movb    #20,2,SP
-200e 16 20 14                   jsr     sum
-2011 1b 83                      leas    3,SP
-2013 3f                         swi
-                        
-                        ; sum(2:array, 1:length) -> Y
-2014 ee 82              sum     ldx     2,SP
-2016 a6 84                      ldaa    4,SP
-2018 cd 00 00                   ldy     #0
-201b e6 00              sum0    ldab    0,X
-201d 19 ed                      aby
-201f 08                         inx
-2020 04 30 f8                   dbne    A, sum0
-2023 3d                         rts
-                        
-2024 5a 69 b8 69 ba 53  array   dc.b         90, 105, 184, 105, 186, 83, 132, 14, 96, 125, 27, 120, 24, 13, 251, 116, 206, 60, 196, 188
-     84 0e 60 7d 1b 78
-     18 0d fb 74 ce 3c
-     c4 bc
-                                end
+standard_deviation2.asm:16: Error - Comma expected but not found.
 
-Executed: Sat Mar 04 01:40:13 2017
-Total cycles: 55, Total bytes: 56
-Total errors: 0, Total warnings: 0
+Executed: Mon Mar 06 22:31:42 2017
+Total errors: 1, Total warnings: 0

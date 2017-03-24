@@ -63,14 +63,15 @@ oc7m:           equ $42 ;timer output compare 7 mask
 oc7d:           equ $43 ;timer output compare 7 data
 tcnt:           equ $44 ;timer counter register hi
 *tcnt:          equ $45 ;timer counter register lo
-tscr:           equ $46 ;timer system control register
+tscr1:          equ $46 ;timer system control register
 ttov:           equ $47 ;reserved
 tctl1:          equ $48 ;timer control register 1
 tctl2:          equ $49 ;timer control register 2
 tctl3:          equ $4a ;timer control register 3
 tctl4:          equ $4b ;timer control register 4
 tmsk1:          equ $4c ;timer interrupt mask 1
-tmsk2:          equ $4d ;timer interrupt mask 2
+tscr2:			equ $4d
+;tmsk2:          equ $4d ;timer interrupt mask 2
 tflg1:          equ $4e ;timer flags 1
 tflg2:          equ $4f ;timer flags 2
 tc0:            equ $50 ;timer capture/compare register 0
